@@ -33,6 +33,7 @@ class MobileCompany extends React.PureComponent {
   
   setBalance = (clientId,newBalance) => {
     let newClients=[...this.state.clients];
+    // ...  поверхностная копия (только массив элементов(ссылки на хэши)сами хэши не копировались)
     newClients.forEach( c => {
       if ( c.id==clientId )
         c.balance=newBalance;
