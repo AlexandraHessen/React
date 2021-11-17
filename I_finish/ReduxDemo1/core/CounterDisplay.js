@@ -29,6 +29,12 @@ const mapStateToProps = function (state) {
 };
 
 // присоединяем (connect) компонент к хранилищу Redux
+// заворачиваем в HOC
+// connect  import {connect} from 'react-redux'; 
+// позволяет React подписаться на Redux 
+// connect в качестве аргумента дожен получить хэш, который говорит 
+// что из Redux под какими props должно прилететь
 const CounterDisplay = connect(mapStateToProps)(intCounterDisplay);
 
 export default CounterDisplay;
+// заворачиваем в HOC поэтому возвращаем такое название
