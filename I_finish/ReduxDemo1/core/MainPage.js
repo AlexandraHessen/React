@@ -7,12 +7,14 @@ import CounterDisplay from './CounterDisplay';
 import counterReducer from "./counterReducer";
 
 let combinedReducer=combineReducers({
+    // combinedReducer - собрать несколько Reducer в один
     // редьюсер counterReducer отвечает за раздел state под именем counter
     counter: counterReducer, 
+    // counter - название раздела Redux и им будет управлять ruducer - counterReducer
     // + другие редьюсеры
 });
 let store=createStore(combinedReducer);
-
+// createStore - СОЗДАТЬ REDUX
 class MainPage extends React.PureComponent {
 
   render() {
