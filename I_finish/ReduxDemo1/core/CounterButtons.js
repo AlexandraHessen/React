@@ -5,6 +5,8 @@ class intCounterButtons extends React.PureComponent {
 
   incCounter = () => {
     this.props.dispatch( { type:"INC" } );
+    // dispatch - говорит Redux обработай этот action 
+
   }
 
   decCounter = () => {
