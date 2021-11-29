@@ -1,12 +1,13 @@
 ﻿import React from 'react';
 import {connect} from 'react-redux';
+// позволяет React компоненту подписаться на Redux 
 
 class intCounterButtons extends React.PureComponent {
 
   incCounter = () => {
     this.props.dispatch( { type:"INC" } );
-    // dispatch - говорит Redux обработай этот action 
-
+    // .dispatch - передает этот Action Reduceru
+    // а Action у нас это хэш с type ОБЯЗАТЕЛЬНО
   }
 
   decCounter = () => {
@@ -38,7 +39,7 @@ const mapStateToProps = function (state) {
 
 // заворачиваем в HOC
 // connect  import {connect} from 'react-redux'; 
-// позволяет React подписаться на Redux 
+// позволяет React компоненту подписаться на Redux 
 // connect в качестве аргумента дожен получить хэш, который говорит 
 // что из Redux под какими props должно прилететь
 const CounterButtons = connect(mapStateToProps)(intCounterButtons);
