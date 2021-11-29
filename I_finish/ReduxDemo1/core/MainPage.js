@@ -1,5 +1,6 @@
 ﻿import React from 'react';
 import { Provider } from 'react-redux';
+//
 import { createStore, combineReducers } from 'redux';
 // createStore - создаем Redax
 // combineReducers - передаем ему Reducer
@@ -23,6 +24,7 @@ let combinedReducer=combineReducers({
 */
 
 let store=createStore(combinedReducer);
+// Redux создай store которым управляет этот reducer - combinedReducer(который в себе объединяет все reduserы)
 // createStore - СОЗДАТЬ REDUX
 class MainPage extends React.PureComponent {
 
@@ -31,9 +33,8 @@ class MainPage extends React.PureComponent {
     return (
       <Provider store={store}>
       {/* Provider - import { Provider } from 'react-redux'; 
-      все свое приложения мы заварачиваем в tag Provider
-      и в нем сказать store={store} - (хранилище) т.е. раздел Redux 
-      т.е. это хранилище должно быть доступно всему коду, который внутри Provider
+      всё свое приложения мы заварачиваем в tag Provider
+      тег Provider говорит, что для всего кода, который внутри будет работать Redux с хранилищем store
       */}
           <div>
               <h1>демо работы Redux</h1>
