@@ -1,6 +1,8 @@
 ﻿import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
+// createStore - создаем Redax
+// combineReducers - передаем ему Reducer
 
 import CounterButtons from './CounterButtons';
 import CounterDisplay from './CounterDisplay';
