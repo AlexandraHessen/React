@@ -11,6 +11,7 @@ const initState={
 // за который отвечает данный редьюсер
 
 function countersReducer(state=initState,action) {
+  // теперь в action будет не только type но и counterid
   switch (action.type) {
 
     case COUNTER_BUTTON_CREATE: {
