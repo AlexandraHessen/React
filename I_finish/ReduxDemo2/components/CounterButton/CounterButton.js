@@ -1,41 +1,24 @@
 ﻿import React from 'react';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+// позволяет React компоненту подписаться на Redux 
 
-import { counterButton_create, counterButton_add } from '../../redux/countersAC';
-
-import './CounterButton.css';
-
-class CounterButton extends React.PureComponent {
-
-  static propTypes = {
-    counterid: PropTypes.number.isRequired, // передано из родительского компонента
-    counters: PropTypes.object.isRequired, // передано из Redux
-  };
-
-  componentWillMount() {
-    // изначально счётчика с идентификатором counterid нет
-    // создадим
-    this.props.dispatch( counterButton_create(this.props.counterid) );
-  }
+class intCounterButtons extends React.PureComponent {
 
   incCounter = () => {
-    this.props.dispatch( counterButton_add(this.props.counterid,1) );
+    this.props.dispatch( { type:"INC" } );
+    // .dispatch - передает этот Action Reduceru
+    // а Action у нас это хэш с type ОБЯЗАТЕЛЬНО
   }
 
   decCounter = () => {
-    this.props.dispatch( counterButton_add(this.props.counterid,-1) );
+    this.props.dispatch( { type:"DEC" } );
   }
   
   render() {
 
-    // получим значение нужного счётчика
-    let counterValue=this.props.counters.cnts[this.props.counterid];
-
     return (
-      <div className="CounterButton">
+      <div className="CounterButtons">
         <input type='button' value='-' onClick={this.decCounter} />
-        <span className="CounterButtonValue">{counterValue}</span>
         <input type='button' value='+' onClick={this.incCounter} />
       </div>
     );
@@ -44,12 +27,49 @@ class CounterButton extends React.PureComponent {
 
 }
 
+//---------------- 1 Вариант ----------------//
+// ПРОЧИТАТЬ COMMENT 2 ВАРИАНТА
 const mapStateToProps = function (state) {
-  return {
-    // весь раздел Redux state под именем counters будет доступен
-    // данному компоненту как this.props.counters
-    counters: state.counters,
-  };
+  // этому компоненту ничего не нужно из хранилища Redux
+  return { }; 
 };
 
-export default connect(mapStateToProps)(CounterButton);
+// но этому компоненту нужен сам this.props.dispatch, и чтобы
+// он появился, следует присоединить (connect) компонент к хранилищу Redux
+
+// заворачиваем в HOC
+// connect  import {connect} from 'react-redux'; 
+// позволяет React компоненту подписаться на Redux 
+// connect в качестве аргумента дожен получить хэш, который говорит 
+// что из Redux под какими props должно прилететь
+const CounterButtons = connect(mapStateToProps)(intCounterButtons);
+
+
+//---------------- 2 Вариант ----------------//
+// можно вообще не указывать mapStateToProps
+// если мы не передаем первый аргумент const CounterButtons = connect()(intCounterButtons);
+// то connect передает сам dispatch
+
+//т.е.
+
+//* если передали аргумент mapStateToProps
+// тем самым сказали предоставь мне в качестве props функции, т.е. callback которые мне нужно дернуть,
+// чтобы увеливать счетчик на 1 или 0
+
+//* если НЕ передали аргумент mapStateToProps
+// т.е. не говорю какие действия четко вызывать, не готовь для меня callback,
+// дай мне сам dispath, я его сам вызову и сам ему передам action 
+
+
+// но этому компоненту нужен сам this.props.dispatch, и чтобы
+// он появился, следует присоединить (connect) компонент к хранилищу Redux
+
+
+// заворачиваем в HOC
+// connect  import {connect} from 'react-redux'; 
+// позволяет React подписаться на Redux 
+// connect в качестве аргумента дожен получить хэш, который говорит 
+// что из Redux под какими props должно прилететь
+const CounterButtons = connect()(intCounterButtons);
+
+export default CounterButtons;
